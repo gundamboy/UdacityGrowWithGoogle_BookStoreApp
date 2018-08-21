@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -129,7 +128,6 @@ public class MainActivity extends AppCompatActivity {
                 String currentSupplier = String.format(res.getString(R.string.comic_supplier), cursor.getString(idSupplier));
                 String currentPhone = String.format(res.getString(R.string.comic_supplier_phone), cursor.getString(idPhone));
                 String NL = "\n";
-                String COLON_SEP = ": ";
 
                 // Id: 1, Volume: Justice League, Name: Trial by Combat, Issue: 1, Release Date: 08/15/2018
                 // Cover Type: Original, Price: $3.99, Quantity: 1, Publisher: DC,
@@ -174,7 +172,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void deleteDummyData() {
-        Log.i(TAG, "deleteDummyData: bye bye data");
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
         db.delete(ComicEntry.TABLE_NAME, null, null);
     }
