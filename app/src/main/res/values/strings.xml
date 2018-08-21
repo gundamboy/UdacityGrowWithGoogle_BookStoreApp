@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Your Friendly Comic Book Shop</string>
+    <string name="publisher_marvel">Marvel Comics</string>
+    <string name="publisher_dc">DC Entertainment Inc</string>
+    <string name="publisher_darkhorse">Dark Horse Comics</string>
+    <string name="publisher_image">Image Comics</string>
+    <string name="publisher_idw">IDW Publishing</string>
+    <string name="publisher_valiant">Valiant Comics</string>
+    <string name="cover_type_regular">Regular</string>
+    <string name="cover_type_variant">Variant</string>
+    <string name="sole_distributor_killing_the_industry">Diamond Comic Distributors</string>
+    <string name="distributor_contact_number_retailer">1 (443) 318–8500</string>
+
+    <!--these are temp strings and will be going away so don't get attached to them...-->
+    <string name="total_inventory_header">There are %1$d Comic Books in the comicbooks table.</string>
+    <string name="comic_id">Id: %1$s</string>
+    <string name="comic_volume">Volume: %1$s</string>
+    <string name="comic_name">Name:%1$s</string>
+    <string name="comic_issue">Issue: %1$s</string>
+    <string name="comic_date">Release Date: %1$s</string>
+    <string name="comic_cover">Cover Type: %1$s</string>
+    <string name="comic_price">Price: $%1$s</string>
+    <string name="comic_quantity">Quantity: %1$s</string>
+    <string name="comic_publisher">Publisher: %1$s</string>
+    <string name="comic_supplier">Supplier: %1$s</string>
+    <string name="comic_supplier_phone">Phone: %1$s</string>
+</resources>

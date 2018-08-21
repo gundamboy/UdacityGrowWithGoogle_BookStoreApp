@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="publisher_labels">
+        <item>@string/publisher_marvel</item>
+        <item>@string/publisher_dc</item>
+        <item>@string/publisher_darkhorse</item>
+        <item>@string/publisher_image</item>
+        <item>@string/publisher_idw</item>
+        <item>@string/publisher_valiant</item>
+    </string-array>
+</resources>
