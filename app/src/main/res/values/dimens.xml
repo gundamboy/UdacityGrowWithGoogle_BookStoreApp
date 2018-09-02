@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="baseline_eight">8dp</dimen>
+    <dimen name="baseline_fourteen">14dp</dimen>
+    <dimen name="margins_eight">8dp</dimen>
+    <dimen name="comic_title_text_size">18sp</dimen>
+    <dimen name="comic_byline_text">14sp</dimen>
+    <dimen name="sell_button_text">12sp</dimen>
+    <dimen name="sell_button_width_height">40dp</dimen>
+
+</resources>
