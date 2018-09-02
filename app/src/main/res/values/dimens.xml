@@ -6,6 +6,8 @@
     <dimen name="comic_title_text_size">18sp</dimen>
     <dimen name="comic_byline_text">14sp</dimen>
     <dimen name="sell_button_text">12sp</dimen>
+    <dimen name="sell_button_width">60dp</dimen>
+    <dimen name="sell_button_height">36dp</dimen>
     <dimen name="sell_button_width_height">40dp</dimen>
 
 </resources>

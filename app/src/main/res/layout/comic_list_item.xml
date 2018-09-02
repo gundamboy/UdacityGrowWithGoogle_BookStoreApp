@@ -1,72 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/baseline_eight"
+    android:paddingBottom="@dimen/baseline_eight">
 
     <TextView
         android:id="@+id/book_title"
+        style="@style/InventoryListTitles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/baseline_eight"
-        android:layout_marginTop="@dimen/baseline_fourteen"
-        style="@style/InventoryListTitles"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Daredevil #20" />
 
     <TextView
         android:id="@+id/comic_info"
+        style="@style/InventoryListByline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margins_eight"
-        style="@style/InventoryListByline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/book_title"
         tools:text="Marvel Comics - May 17, 2017 · $3.99" />
 
     <TextView
         android:id="@+id/quantityOnHand"
+        style="@style/InventoryListByline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margins_eight"
-        style="@style/InventoryListByline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/comic_info"
         tools:text="30" />
 
     <TextView
         android:id="@+id/in_stock"
+        style="@style/InventoryListByline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/InventoryListByline"
-        app:layout_constraintStart_toEndOf="@+id/quantityOnHand"
-        app:layout_constraintTop_toBottomOf="@+id/comic_info"
+        android:text="@string/in_stock_message"
         app:layout_constraintRight_toRightOf="@+id/quantityOnHand"
-        android:text="@string/in_stock_message" />
+        app:layout_constraintStart_toEndOf="@+id/quantityOnHand"
+        app:layout_constraintTop_toBottomOf="@+id/comic_info" />
 
     <Button
         android:id="@+id/sell_button"
-        style="@style/Widget.AppCompat.Button.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margins_eight"
-        android:layout_marginEnd="@dimen/margins_eight"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/book_title"
+        style="@style/SellButton"
         android:focusable="false"
-        android:text="@string/sell_button" />
+        android:text="@string/sell_button"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="@+id/quantityOnHand"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <!--<Button-->
-        <!--android:id="@+id/sell_button"-->
-        <!--style="@style/SellButton"-->
-        <!--android:layout_marginBottom="8dp"-->
-        <!--android:focusable="false"-->
-        <!--android:text="@string/sell_button"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/book_title" />-->
+    <!--android:id="@+id/sell_button"-->
+    <!--style="@style/SellButton"-->
+    <!--android:layout_marginBottom="8dp"-->
+    <!--android:focusable="false"-->
+    <!--android:text="@string/sell_button"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/book_title" />-->
 
 </android.support.constraint.ConstraintLayout>

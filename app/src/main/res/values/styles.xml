@@ -19,7 +19,7 @@
         <item name="android:textSize">@dimen/comic_byline_text</item>
     </style>
 
-    <style name="SellButton" parent="AppTheme">
+    <style name="SellButton_Round" parent="AppTheme">
         <item name="android:textColor">@color/sell_button_text_color</item>
         <item name="android:background">@drawable/round_button_sell</item>
         <item name="android:textSize">@dimen/sell_button_text</item>
@@ -27,6 +27,13 @@
         <item name="android:layout_marginBottom">@dimen/margins_eight</item>
         <item name="android:layout_width">@dimen/sell_button_width_height</item>
         <item name="android:layout_height">@dimen/sell_button_width_height</item>
+    </style>
+
+    <style name="SellButton" parent="AppTheme">
+        <item name="android:textSize">@dimen/sell_button_text</item>
+        <item name="android:layout_marginEnd">@dimen/margins_eight</item>
+        <item name="android:layout_width">@dimen/sell_button_width</item>
+        <item name="android:layout_height">@dimen/sell_button_height</item>
     </style>
 
 </resources>
