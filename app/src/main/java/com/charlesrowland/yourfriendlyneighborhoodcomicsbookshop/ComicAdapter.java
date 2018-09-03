@@ -19,17 +19,86 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
     public static final String TAG = ComicAdapter.class.getSimpleName();
     private Context mContext;
     private Cursor mCursor;
+    private OnItemClickListener mListener;
 
     public ComicAdapter(Context context, Cursor cursor) {
         mContext = context;
         mCursor = cursor;
     }
 
+    // click listener interface;
+    public interface OnItemClickListener {
+        void onItemClick(int position, int db_id, int quantity, String title);
+        void onLongClick(int position, int db_id, String title);
+
+    }
+
+    public void setOnClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
+
+    public static class ComicViewHolder extends RecyclerView.ViewHolder {
+        public ConstraintLayout parentLayout;
+        public TextView item_id;
+        public TextView book_title;
+        public TextView comic_info;
+        public TextView quantityOnHand;
+        public TextView in_stock_message;
+        public Button sell_button;
+
+        public ComicViewHolder(View itemView, final OnItemClickListener listener) {
+            super(itemView);
+
+            parentLayout = itemView.findViewById(R.id.parent_layout);
+            item_id = itemView.findViewById(R.id.item_id);
+            book_title = itemView.findViewById(R.id.book_title);
+            comic_info = itemView.findViewById(R.id.comic_info);
+            quantityOnHand = itemView.findViewById(R.id.quantityOnHand);
+            in_stock_message = itemView.findViewById(R.id.in_stock);
+            sell_button = itemView.findViewById(R.id.sell_button);
+
+            sell_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        int db_id = Integer.parseInt(item_id.getText().toString());
+                        int quantity = Integer.parseInt(quantityOnHand.getText().toString());
+                        String title = book_title.getText().toString();
+
+                        if (position != RecyclerView.NO_POSITION) {
+                            //listener.onItemClick(position, db_id);
+                            listener.onItemClick(position, db_id, quantity, title);
+                        }
+                    }
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener(){
+
+                @Override
+                public boolean onLongClick(View v) {
+                    if (listener != null) {
+                        int position = getAdapterPosition();
+                        int db_id = Integer.parseInt(item_id.getText().toString());
+                        String title = book_title.getText().toString();
+
+                        if (position != RecyclerView.NO_POSITION) {
+                            //listener.onItemClick(position, db_id);
+                            listener.onLongClick(position, db_id, title);
+                        }
+                    }
+                    return true;
+                }
+            });
+        }
+    }
+
     @NonNull
     @Override
     public ComicViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.comic_list_item, parent, false);
-        return new ComicViewHolder(view);
+        return new ComicViewHolder(view, mListener);
     }
 
     @Override
@@ -52,6 +121,7 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
         // if the quantity is 10 or less that needs to be indicated. Nothing worse than running out of comics.
         holder.quantityOnHand.setTextColor(quantityColor(quantity));
 
+        holder.item_id.setText(String.valueOf(db_id));
         holder.book_title.setText(full_title);
         holder.comic_info.setText(info);
 
@@ -62,15 +132,6 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
         } else {
             holder.quantityOnHand.setText(String.valueOf(quantity));
         }
-
-        /**
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i(TAG, "onClick: clicked on the WHOLE item at position: " + position);
-            }
-        });
-         **/
 
         /**
         holder.sell_button.setOnClickListener(new View.OnClickListener() {
@@ -131,26 +192,6 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
         return mCursor.getCount();
     }
 
-    public class ComicViewHolder extends RecyclerView.ViewHolder {
-        public ConstraintLayout parentLayout;
-        public TextView book_title;
-        public TextView comic_info;
-        public TextView quantityOnHand;
-        public TextView in_stock_message;
-        public Button sell_button;
-
-        public ComicViewHolder(View itemView) {
-            super(itemView);
-
-            parentLayout = itemView.findViewById(R.id.parent_layout);
-            book_title = itemView.findViewById(R.id.book_title);
-            comic_info = itemView.findViewById(R.id.comic_info);
-            quantityOnHand = itemView.findViewById(R.id.quantityOnHand);
-            in_stock_message = itemView.findViewById(R.id.in_stock);
-            sell_button = itemView.findViewById(R.id.sell_button);
-        }
-    }
-
     private int quantityColor(int quantity) {
         // if the quantity is less than 10 it gets a bright color to be
         // apparent that YOU ARE RUNNING LOW! ORDER MORE!
@@ -185,6 +226,30 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
 
         if (newCursor != null) {
             notifyItemInserted(0);
+        }
+    }
+
+    public void swapCursorDeleteSingleItem(Cursor newCursor, int position) {
+        if (mCursor != null) {
+            mCursor.close();
+        }
+
+        mCursor = newCursor;
+
+        if (newCursor != null) {
+            notifyItemRemoved(position);
+        }
+    }
+
+    public void swapCursorItemChanged(Cursor newCursor, int position) {
+        if (mCursor != null) {
+            mCursor.close();
+        }
+
+        mCursor = newCursor;
+
+        if (newCursor != null) {
+            notifyItemChanged(position);
         }
     }
 
