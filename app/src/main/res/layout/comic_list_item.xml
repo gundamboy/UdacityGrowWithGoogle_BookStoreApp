@@ -8,6 +8,12 @@
     android:paddingBottom="@dimen/baseline_eight">
 
     <TextView
+        android:id="@+id/item_id"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"/>
+
+    <TextView
         android:id="@+id/book_title"
         style="@style/InventoryListTitles"
         android:layout_width="wrap_content"
@@ -55,15 +61,5 @@
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="@+id/quantityOnHand"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <!--<Button-->
-    <!--android:id="@+id/sell_button"-->
-    <!--style="@style/SellButton"-->
-    <!--android:layout_marginBottom="8dp"-->
-    <!--android:focusable="false"-->
-    <!--android:text="@string/sell_button"-->
-    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintTop_toBottomOf="@+id/book_title" />-->
 
 </android.support.constraint.ConstraintLayout>
