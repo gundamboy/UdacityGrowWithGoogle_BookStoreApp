@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.charlesrowland.yourfriendlyneighborhoodcomicsbookshop">
+    package="com.charlesrowland.comicshop">
 
     <application
         android:allowBackup="true"
@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="com.charlesrowland.comicshop.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,12 +18,12 @@
         </activity>
 
         <provider
-            android:name=".data.ComicProvider"
-            android:authorities="com.charlesrowland.yourfriendlyneighborhoodcomicsbookshop"
+            android:name="com.charlesrowland.comicshop.data.ComicProvider"
+            android:authorities="com.charlesrowland.comicshop"
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".EditorActivity"></activity>
+        <activity android:name="com.charlesrowland.comicshop.EditorActivity"></activity>
     </application>
 
 </manifest>

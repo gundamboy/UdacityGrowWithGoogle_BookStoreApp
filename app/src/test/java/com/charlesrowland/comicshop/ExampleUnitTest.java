@@ -1,4 +1,4 @@
-package com.charlesrowland.yourfriendlyneighborhoodcomicsbookshop;
+package com.charlesrowland.comicshop;
 
 import org.junit.Test;
 

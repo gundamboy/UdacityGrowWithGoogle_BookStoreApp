@@ -1,4 +1,4 @@
-package com.charlesrowland.yourfriendlyneighborhoodcomicsbookshop;
+package com.charlesrowland.comicshop;
 
 /**
  * This class will be used in part2 when I pull from the comic vine api. for now, its just here

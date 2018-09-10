@@ -1,4 +1,4 @@
-package com.charlesrowland.yourfriendlyneighborhoodcomicsbookshop;
+package com.charlesrowland.comicshop;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -14,8 +14,6 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.text.method.KeyListener;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -30,7 +28,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.charlesrowland.yourfriendlyneighborhoodcomicsbookshop.data.ComicContract;
+import com.charlesrowland.comicshop.data.ComicContract;
 
 import java.util.Calendar;
 
@@ -74,6 +72,7 @@ public class EditorActivity extends AppCompatActivity implements
 
         mHowto = findViewById(R.id.howto_info);
 
+        // check to see if there is data in the intent. It will be null if not
         Intent intent = getIntent();
         mCurrentComicUri = intent.getData();
 
@@ -82,12 +81,14 @@ public class EditorActivity extends AppCompatActivity implements
             mHowto.setText(getString(R.string.add_new_info));
             invalidateOptionsMenu();
         } else {
+            // edit mode: i needed a way to do some fancy stuff later on. this helps with that. deal with it.
             editMode = true;
             mHowto.setText(getString(R.string.edit_book_info));
             setTitle(getString(R.string.action_edit_comic));
             getLoaderManager().initLoader(EXISTING_COMIC_LOADER, null, this);
         }
 
+        // grab all the stuff... i mean views.
         mVolume = findViewById(R.id.edit_comic_volume);
         mName = findViewById(R.id.edit_comic_name);
         mIssueNumber = findViewById(R.id.edit_comic_issue_number);
@@ -102,9 +103,13 @@ public class EditorActivity extends AppCompatActivity implements
         mQuantity_add_button = findViewById(R.id.quantity_add_button);
         mQuantity_minus_button = findViewById(R.id.quantity_minus_button);
 
+        // disables the date editextview which forces the user to use the calendar button.
+        // why would you do this you ask.. because I can. Also, because now I dont have
+        // do validity on the date format. see what i did there... its called winning.
         mDisplayDate.setEnabled(false);
         mDisplayDate.setFocusable(false);
 
+        // setting up autocomplete text suggestions. it's 2018, typing full sentences is stupid.
         String[] suggested_price = getResources().getStringArray(R.array.suggested_prices_array);
         ArrayAdapter<String> suggested_price_adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, suggested_price);
         mPrice.setAdapter(suggested_price_adapter);
@@ -121,10 +126,13 @@ public class EditorActivity extends AppCompatActivity implements
         ArrayAdapter<String> phone_numbers_adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, distributor_phones);
         mSupplierPhone.setAdapter(phone_numbers_adapter);
 
+        // sets up touch listeners. I know the name is confusing which is why i explained it here.
         setTouchListeners();
 
+        // sets up the spinner. not a cool spinner like on roller skates though
         setupSpinner();
 
+        // super awesome calendar button.
         mCalendarButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -134,6 +142,10 @@ public class EditorActivity extends AppCompatActivity implements
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
                 if (editMode) {
+                    // this is some of the fancy stuff i was talking about earlier.
+                    // now that I think about it i could just checked if mCurrentComicUri
+                    // wasn't null, but its too late now, im not going back there, i will never
+                    // go back there.
                     year = parseStringDate(mDisplayDate.getText().toString(), "y");
                     month = parseStringDate(mDisplayDate.getText().toString(), "m");
                     day = parseStringDate(mDisplayDate.getText().toString(), "d");
@@ -144,6 +156,7 @@ public class EditorActivity extends AppCompatActivity implements
             }
         });
 
+        // the actual datepicker
         mDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -153,6 +166,7 @@ public class EditorActivity extends AppCompatActivity implements
             }
         };
 
+        // these next to add and subtract from the quantity
         mQuantity_add_button.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -168,6 +182,8 @@ public class EditorActivity extends AppCompatActivity implements
         });
     }
 
+    // this guy takes the string date from the DB and sends back the int needed to set
+    // the datepicker if we are editing an entry.
     private int parseStringDate(String strDate, String section) {
         String[] parts = strDate.split("/");
         int month = Integer.parseInt(parts[0]);
@@ -191,6 +207,7 @@ public class EditorActivity extends AppCompatActivity implements
         return partRequested;
     }
 
+    // touch listeners. if something here gets touched it enables the dialog for losing changes
     private void setTouchListeners() {
         mVolume.setOnTouchListener(mTouchListener);
         mName.setOnTouchListener(mTouchListener);
@@ -206,6 +223,7 @@ public class EditorActivity extends AppCompatActivity implements
         mDisplayDate.setOnTouchListener(mTouchListener);
     }
 
+    // this sets the quantity in the edittext view
     private void setStringQuantity(String method) {
         String stringQuantity = mQuantity.getText().toString();
         int currentQuantity;
@@ -230,6 +248,7 @@ public class EditorActivity extends AppCompatActivity implements
         mQuantity.setText(String.valueOf(currentQuantity));
     }
 
+    // not a roller skate spinner. its for choosing the proper cover type.
     public void setupSpinner() {
         Spinner cover_spinner = findViewById(R.id.cover_spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.cover_types_array, R.layout.spinner_items);
@@ -237,6 +256,7 @@ public class EditorActivity extends AppCompatActivity implements
         cover_spinner.setAdapter(adapter);
     }
 
+    // save to the database
     private void saveComic() {
         String volume = mVolume.getText().toString().trim();
         String name = mName.getText().toString().trim();
@@ -322,7 +342,7 @@ public class EditorActivity extends AppCompatActivity implements
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-        // If this is a new pet, hide the "Delete" menu item.
+        // If this is a new comic, hide the delete menu item and the contact menu
         if (mCurrentComicUri == null) {
             MenuItem menuItemContact = menu.findItem(R.id.action_contact);
             MenuItem menuItemDelete = menu.findItem(R.id.action_delete);
@@ -336,7 +356,7 @@ public class EditorActivity extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save:
-                // Save pet to database
+                // Save to database
                 saveComic();
 
                 if (okToSave) {
@@ -382,6 +402,7 @@ public class EditorActivity extends AppCompatActivity implements
         return super.onOptionsItemSelected(item);
     }
 
+    // this strips out all non numeric characters from the phone number
     private String supplierPhoneNumber() {
         String raw_phone = mSupplierPhone.getText().toString();
         return raw_phone.replaceAll("[^\\d]", "");
@@ -389,7 +410,7 @@ public class EditorActivity extends AppCompatActivity implements
 
     @Override
     public void onBackPressed() {
-        // If the pet hasn't changed, continue with handling back button press
+        // If the comic hasn't changed, continue with handling back button press
         if (!mComicHasChanged) {
             super.onBackPressed();
             return;
@@ -413,6 +434,7 @@ public class EditorActivity extends AppCompatActivity implements
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
 
+        // start doing database stuff
         String[] projection = {ComicContract.ComicEntry._ID, ComicContract.ComicEntry.COLUMN_COMIC_VOLUME, ComicContract.ComicEntry.COLUMN_COMIC_NAME, ComicContract.ComicEntry.COLUMN_ISSUE_NUMBER, ComicContract.ComicEntry.COLUMN_RELEASE_DATE, ComicContract.ComicEntry.COLUMN_COVER_TYPE, ComicContract.ComicEntry.COLUMN_PRICE, ComicContract.ComicEntry.COLUMN_QUANTITY, ComicContract.ComicEntry.COLUMN_ON_ORDER, ComicContract.ComicEntry.COLUMN_PUBLISHER, ComicContract.ComicEntry.COLUMN_SUPPLIER_NAME, ComicContract.ComicEntry.COLUMN_SUPPLIER_PHONE};
         return new CursorLoader(this, mCurrentComicUri, projection, null, null, null);
     }
@@ -424,6 +446,7 @@ public class EditorActivity extends AppCompatActivity implements
             return;
         }
 
+        // we have a cursor so lets get to it. grab all the stuff and set the views
         if (cursor.moveToFirst()) {
             int volumeColumnIndex = cursor.getColumnIndex(ComicContract.ComicEntry.COLUMN_COMIC_VOLUME );
             int nameColumnIndex = cursor.getColumnIndex(ComicContract.ComicEntry.COLUMN_COMIC_NAME );
@@ -495,7 +518,7 @@ public class EditorActivity extends AppCompatActivity implements
             builder.setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Keep editing" button, so dismiss the dialog
-                // and continue editing the pet.
+                // and continue editing the comic.
                 if (dialog != null) {
                     dialog.dismiss();
                 }
@@ -514,14 +537,14 @@ public class EditorActivity extends AppCompatActivity implements
         builder.setMessage(R.string.delete_dialog_msg);
         builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Delete" button, so delete the pet.
+                // User clicked the "Delete" button, so delete the comic.
                 deleteComic();
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Cancel" button, so dismiss the dialog
-                // and continue editing the pet.
+                // and continue editing the comic.
                 if (dialog != null) {
                     dialog.dismiss();
                 }
@@ -534,11 +557,11 @@ public class EditorActivity extends AppCompatActivity implements
     }
 
     private void deleteComic() {
-        // Only perform the delete if this is an existing pet.
+        // Only perform the delete if this is an existing comic.
         if (mCurrentComicUri != null) {
-            // Call the ContentResolver to delete the pet at the given content URI.
+            // Call the ContentResolver to delete the comic at the given content URI.
             // Pass in null for the selection and selection args because the mCurrentPetUri
-            // content URI already identifies the pet that we want.
+            // content URI already identifies the comic that we want.
             int rowsDeleted = getContentResolver().delete(mCurrentComicUri, null, null);
 
             // Show a toast message depending on whether or not the delete was successful.

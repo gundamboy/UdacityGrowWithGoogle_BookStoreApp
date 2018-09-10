@@ -1,4 +1,4 @@
-package com.charlesrowland.yourfriendlyneighborhoodcomicsbookshop;
+package com.charlesrowland.comicshop;
 
 import android.content.ContentUris;
 import android.content.Context;
@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.charlesrowland.yourfriendlyneighborhoodcomicsbookshop.data.ComicContract;
+import com.charlesrowland.comicshop.data.ComicContract;
 
 public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHolder> {
     public static final String TAG = ComicAdapter.class.getSimpleName();

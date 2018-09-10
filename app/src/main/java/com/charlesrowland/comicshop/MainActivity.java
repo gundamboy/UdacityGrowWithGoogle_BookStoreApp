@@ -1,4 +1,4 @@
-package com.charlesrowland.yourfriendlyneighborhoodcomicsbookshop;
+package com.charlesrowland.comicshop;
 
 import android.app.AlertDialog;
 import android.app.LoaderManager;
@@ -15,13 +15,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.charlesrowland.yourfriendlyneighborhoodcomicsbookshop.data.ComicContract.ComicEntry;
+import com.charlesrowland.comicshop.data.ComicContract.ComicEntry;
 
 import java.util.Random;
 
@@ -51,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         displayData();
     }
 
+    // the sole purpose of this is to check if the loader needs to restart
+    // if we added a new item, it needs to restart. if an item was edited, it needs to restart.
     public void displayData() {
         if (mReload) {
             getLoaderManager().restartLoader(URL_LOADER,null,this);
@@ -59,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setEmptyView();
     }
 
+    // checks for db count and shows/hides the empty items view
+    // my empty items screen is awesome by the way.
     public void setEmptyView() {
         int count = getAllItems().getCount();
         if (count == 0) {
@@ -70,8 +73,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         }
     }
 
+    // creates the recyclerview
     public void buildRecyclerView() {
-
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -82,6 +85,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mAdapter = new ComicAdapter(this, null);
         recyclerView.setAdapter(mAdapter);
 
+        // ok, this might look like a bunch of empty junk, but without it you can't click
+        // the buttons on the list items. It is here for a reason so chill out.
         mAdapter.setOnClickListener(new ComicAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, int db_id, int quantity, String title) {
@@ -167,6 +172,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        // these two things are what does the actual reloading of the info if it changed
         mAdapter.swapCursor(data);
         mReload = ! mReload;
     }
@@ -177,35 +183,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     }
 
-    private void showDeleteConfirmationDialog(final int db_id, final int position) {
-        // Create an AlertDialog.Builder and set the message, and click listeners
-        // for the postivie and negative buttons on the dialog.
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.delete_dialog_msg);
-        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Delete" button, so delete the comic.
-                deleteSingleComic(db_id, position);
-            }
-        });
-        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Cancel" button, so dismiss the dialog
-                // and continue editing the comic.
-                if (dialog != null) {
-                    dialog.dismiss();
-                }
-            }
-        });
-
-        // Create and show the AlertDialog
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }
-
+    // this is here for the advanced options of deleting everything.
+    // i know you shouldn't do this, but it's for education purposes only
     private void showDeleteAllConfirmationDialog() {
         // Create an AlertDialog.Builder and set the message, and click listeners
-        // for the postivie and negative buttons on the dialog.
+        // for the positive and negative buttons on the dialog.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.delete_all_dialog_msg);
         builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
@@ -229,23 +211,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         alertDialog.show();
     }
 
-    private void deleteSingleComic(int db_id, int position) {
-        // Only perform the delete if this is an existing pet.
-        Uri currentComicUri = ContentUris.withAppendedId(ComicEntry.CONTENT_URI, db_id);
-        int rowsDeleted = getContentResolver().delete(currentComicUri, null, null);
-
-        // Show a toast message depending on whether or not the delete was successful.
-        if (rowsDeleted == 0) {
-            // If no rows were deleted, then there was an error with the delete.
-            Toast.makeText(this, getString(R.string.editor_delete_comic_failed),
-                    Toast.LENGTH_SHORT).show();
-        } else {
-            // Otherwise, the delete was successful and we can display a toast.
-            mAdapter.swapCursorDeleteSingleItem(getAllItems(), position);
-        }
-        setEmptyView();
-    }
-
+    // Kill 'em All
     private void deleteAllComics() {
         // Only perform the delete if this is an existing pet.
         int rowsDeleted = getContentResolver().delete(ComicEntry.CONTENT_URI, null, null);
@@ -262,6 +228,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setEmptyView();
     }
 
+    // helper method to grab a row count from the database
     private Cursor getAllItems() {
         return getContentResolver().query(ComicEntry.CONTENT_URI, projection, null, null, ComicEntry._ID + " DESC");
     }

@@ -1,4 +1,4 @@
-package com.charlesrowland.yourfriendlyneighborhoodcomicsbookshop.data;
+package com.charlesrowland.comicshop.data;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -7,11 +7,9 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.util.Log;
-import android.view.Gravity;
 import android.widget.Toast;
 
-import com.charlesrowland.yourfriendlyneighborhoodcomicsbookshop.R;
+import com.charlesrowland.comicshop.R;
 
 public class ComicProvider extends ContentProvider {
     public static final String LOG = ComicProvider.class.getSimpleName();
@@ -21,8 +19,6 @@ public class ComicProvider extends ContentProvider {
 
     // URI matcher for the content URI for a single comicbooks row in the table
     private static final int COMICBOOKS_ID = 101;
-
-    private boolean okToSave = false;
 
     /**
      * UriMatcher object to match a content URI to a corresponding code.

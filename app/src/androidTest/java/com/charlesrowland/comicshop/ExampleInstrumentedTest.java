@@ -1,4 +1,4 @@
-package com.charlesrowland.yourfriendlyneighborhoodcomicsbookshop;
+package com.charlesrowland.comicshop;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.charlesrowland.yourfriendlyneighborhoodcomicsbookshop", appContext.getPackageName());
+        assertEquals("com.charlesrowland.comicshop", appContext.getPackageName());
     }
 }

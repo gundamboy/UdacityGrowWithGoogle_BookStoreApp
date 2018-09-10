@@ -1,10 +1,10 @@
-package com.charlesrowland.yourfriendlyneighborhoodcomicsbookshop.data;
+package com.charlesrowland.comicshop.data;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import com.charlesrowland.yourfriendlyneighborhoodcomicsbookshop.R;
-import com.charlesrowland.yourfriendlyneighborhoodcomicsbookshop.data.ComicContract.*;
+
+import com.charlesrowland.comicshop.data.ComicContract.*;
 
 public class ComicDbHelper extends SQLiteOpenHelper {
     Context context;

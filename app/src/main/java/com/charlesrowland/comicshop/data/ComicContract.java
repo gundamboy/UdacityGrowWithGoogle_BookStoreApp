@@ -1,4 +1,4 @@
-package com.charlesrowland.yourfriendlyneighborhoodcomicsbookshop.data;
+package com.charlesrowland.comicshop.data;
 
 import android.content.ContentResolver;
 import android.net.Uri;
@@ -9,7 +9,7 @@ public final class ComicContract {
     // none shall pass. prevent instantiation
     public ComicContract() {}
 
-    public static final String CONTENT_AUTHORITY = "com.charlesrowland.yourfriendlyneighborhoodcomicsbookshop";
+    public static final String CONTENT_AUTHORITY = "com.charlesrowland.comicshop";
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
     public static final String PATH_COMICBOOKS = "comicbooks";
 
@@ -23,6 +23,7 @@ public final class ComicContract {
         // MIME type for a single comic
         public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_COMICBOOKS;
 
+        // DataBase table stuff
         public static final String TABLE_NAME = "comicbooks";
         public static final String _ID = BaseColumns._ID;
         public static final String COLUMN_COMIC_VOLUME = "volume";  // replaces Product Name
