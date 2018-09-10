@@ -19,21 +19,40 @@
         <item name="android:textSize">@dimen/comic_byline_text</item>
     </style>
 
-    <style name="SellButton_Round" parent="AppTheme">
-        <item name="android:textColor">@color/sell_button_text_color</item>
-        <item name="android:background">@drawable/round_button_sell</item>
-        <item name="android:textSize">@dimen/sell_button_text</item>
-        <item name="android:layout_marginEnd">@dimen/margins_eight</item>
-        <item name="android:layout_marginBottom">@dimen/margins_eight</item>
-        <item name="android:layout_width">@dimen/sell_button_width_height</item>
-        <item name="android:layout_height">@dimen/sell_button_width_height</item>
-    </style>
-
     <style name="SellButton" parent="AppTheme">
         <item name="android:textSize">@dimen/sell_button_text</item>
         <item name="android:layout_marginEnd">@dimen/margins_eight</item>
-        <item name="android:layout_width">@dimen/sell_button_width</item>
-        <item name="android:layout_height">@dimen/sell_button_height</item>
+        <item name="android:layout_width">@dimen/list_item_button_width</item>
+        <item name="android:layout_height">@dimen/list_item_button_height</item>
+    </style>
+
+    <style name="EditButton" parent="AppTheme">
+        <item name="android:textSize">@dimen/sell_button_text</item>
+        <item name="android:layout_marginEnd">@dimen/margins_four</item>
+        <item name="android:layout_width">@dimen/list_item_button_width</item>
+        <item name="android:layout_height">@dimen/list_item_button_height</item>
+    </style>
+
+    <style name="QuantityButton" parent="AppTheme">
+        <item name="android:textSize">@dimen/quantity_buttons_text</item>
+        <item name="android:layout_marginEnd">@dimen/margins_eight</item>
+        <item name="android:layout_width">@dimen/quantity_buttons_width</item>
+        <item name="android:layout_height">@dimen/quantity_buttons_height</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:layout_marginBottom">@dimen/baseline_four</item>
+    </style>
+
+    <style name="EditorFieldStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+    </style>
+
+    <style name="TextStyles">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
 
 </resources>

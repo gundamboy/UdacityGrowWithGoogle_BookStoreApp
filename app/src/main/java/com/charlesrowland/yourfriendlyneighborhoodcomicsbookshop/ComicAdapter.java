@@ -1,7 +1,10 @@
 package com.charlesrowland.yourfriendlyneighborhoodcomicsbookshop;
 
+import android.content.ContentUris;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
@@ -45,8 +48,9 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
         public TextView quantityOnHand;
         public TextView in_stock_message;
         public Button sell_button;
+        public Button edit_button;
 
-        public ComicViewHolder(View itemView, final OnItemClickListener listener) {
+        public ComicViewHolder(final View itemView, final OnItemClickListener listener) {
             super(itemView);
 
             parentLayout = itemView.findViewById(R.id.parent_layout);
@@ -56,6 +60,7 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
             quantityOnHand = itemView.findViewById(R.id.quantityOnHand);
             in_stock_message = itemView.findViewById(R.id.in_stock);
             sell_button = itemView.findViewById(R.id.sell_button);
+            edit_button = itemView.findViewById(R.id.edit_button);
 
             sell_button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -66,29 +71,34 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
                         int quantity = Integer.parseInt(quantityOnHand.getText().toString());
                         String title = book_title.getText().toString();
 
+                        int newQuantity = quantity-1;
+
+                        if (newQuantity < 0) {
+                            newQuantity = 0;
+                        }
+
                         if (position != RecyclerView.NO_POSITION) {
                             //listener.onItemClick(position, db_id);
-                            listener.onItemClick(position, db_id, quantity, title);
+                            listener.onItemClick(position, db_id, newQuantity, title);
                         }
                     }
                 }
             });
 
-            itemView.setOnLongClickListener(new View.OnLongClickListener(){
-
+            edit_button.setOnClickListener(new View.OnClickListener(){
                 @Override
-                public boolean onLongClick(View v) {
+                public void onClick(View v) {
                     if (listener != null) {
-                        int position = getAdapterPosition();
                         int db_id = Integer.parseInt(item_id.getText().toString());
-                        String title = book_title.getText().toString();
+                        Log.i(TAG, "onClick: db_id: " + db_id);
 
-                        if (position != RecyclerView.NO_POSITION) {
-                            //listener.onItemClick(position, db_id);
-                            listener.onLongClick(position, db_id, title);
-                        }
+                        Intent intent = new Intent(itemView.getContext(), EditorActivity.class);
+                        Uri currentComicUri = ContentUris.withAppendedId(ComicContract.ComicEntry.CONTENT_URI, db_id);
+                        Log.i(TAG, "onClick: currentComicUri: " + currentComicUri);
+
+                        intent.setData(currentComicUri);
+                        itemView.getContext().startActivity(intent);
                     }
-                    return true;
                 }
             });
         }
@@ -132,59 +142,6 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
         } else {
             holder.quantityOnHand.setText(String.valueOf(quantity));
         }
-
-        /**
-        holder.sell_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int quantityFromView;
-
-                 //  get the quantity from the TextView because wtf why is the RecyclerView doing this to me?
-                 //  seriously, I couldn't figure out another way to do this. Making a global quantity makes
-                 //  EACH list item share the quantity. ... REALLY!? So fine, you don't tell me what to do
-                 //  RecyclerView.. I DO WHAT I WANT!
-
-                String quantityString = holder.quantityOnHand.getText().toString();
-
-                // remove any alpha characters so it can be cast as an int without a crash
-                String numberString = quantityString.replaceAll("[^\\d]", "");
-                int stringLength = numberString.length();
-                 //  now, you might be seeing this next bit of code and thinking to yourself... hmm,
-                 //  why is he setting the value to be 1... shouldn't it be 0? Well, you can't be faulted
-                 //  for thinking that, but you're still wrong. This click event is AFTER-FACT which means
-                 //  if quantityFromView was set to 0, then the view would actually display "0 out of stock"
-                 //  instead of going from 1, to just, Out of Stock. So, that's why it's set to 1. WORD UP!
-
-                 // wait, what? you said 1.. yeah, i did. for quantityFromView. if the string has no length
-                 // its empty and you can cast an empty string to an int. it will crash just like all the
-                 // airplanes crash when Tom Hanks flies them in a movie. Seriously, they all crash. He's a
-                 // terrible pretend pilot.
-
-                if (stringLength == 0) {
-                    quantityFromView = 1;
-                } else {
-                    quantityFromView = Integer.parseInt(numberString);
-                }
-
-                // the word visibility here should tell you all you need to know. now you see it, now you don't
-                if (quantityFromView == 1) {
-                    if (holder.in_stock_message.getVisibility() == View.VISIBLE) {
-                        holder.in_stock_message.setVisibility(View.GONE);
-                        holder.quantityOnHand.setText(mContext.getResources().getString(R.string.out_of_stock_message));
-                        holder.sell_button.setEnabled(false);
-
-                        // TODO: update the value in the database to be 0
-                    }
-                } else {
-                    quantityFromView--;
-                    holder.quantityOnHand.setTextColor(quantityColor(quantityFromView));
-                    holder.quantityOnHand.setText(String.valueOf(quantityFromView));
-
-                    // TODO: update the value in the database
-                }
-            }
-        });
-         **/
     }
 
     @Override

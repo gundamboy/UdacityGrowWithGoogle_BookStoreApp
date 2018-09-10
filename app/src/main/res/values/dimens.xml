@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="emptyTextViewText">11sp</dimen>
+    <dimen name="baseline_zero">0dp</dimen>
+    <dimen name="baseline_four">4dp</dimen>
     <dimen name="baseline_eight">8dp</dimen>
     <dimen name="baseline_fourteen">14dp</dimen>
+    <dimen name="margins_four">4dp</dimen>
     <dimen name="margins_eight">8dp</dimen>
     <dimen name="comic_title_text_size">18sp</dimen>
     <dimen name="comic_byline_text">14sp</dimen>
     <dimen name="sell_button_text">12sp</dimen>
-    <dimen name="sell_button_width">60dp</dimen>
-    <dimen name="sell_button_height">36dp</dimen>
+    <dimen name="list_item_button_width">60dp</dimen>
+    <dimen name="list_item_button_height">36dp</dimen>
     <dimen name="sell_button_width_height">40dp</dimen>
-
+    <dimen name="quantity_buttons_text">12sp</dimen>
+    <dimen name="quantity_buttons_width">60dp</dimen>
+    <dimen name="quantity_buttons_height">36dp</dimen>
+    <dimen name="calendar_button_dimen">32dp</dimen>
 </resources>

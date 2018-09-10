@@ -33,7 +33,6 @@ public class ComicDbHelper extends SQLiteOpenHelper {
                 ComicEntry.COLUMN_COVER_TYPE + " TEXT" + COMMA_SEP +
                 ComicEntry.COLUMN_PRICE + " REAL" + COMMA_SEP +
                 ComicEntry.COLUMN_QUANTITY + " INTEGER NOT NULL DEFAULT 0" + COMMA_SEP +
-                ComicEntry.COLUMN_ON_ORDER + " INTEGER NOT NULL DEFAULT 0" + COMMA_SEP +
                 ComicEntry.COLUMN_PUBLISHER + " TEXT" + COMMA_SEP +
                 ComicEntry.COLUMN_SUPPLIER_NAME + " TEXT NOT NULL DEFAULT \"Diamond Comic Distributors\""  + COMMA_SEP +
                 ComicEntry.COLUMN_SUPPLIER_PHONE + " TEXT NOT NULL DEFAULT \"1 (443) 318–8500\"" +

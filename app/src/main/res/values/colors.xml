@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#11426a</color>
     <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#11426a</color>
     <color name="textColorPrimary">#FFFFFF</color>
     <color name="divider_background">#dfe1e2</color>
     <color name="comic_title_text">#2a536e</color>

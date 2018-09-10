@@ -21,7 +21,9 @@
             android:name=".data.ComicProvider"
             android:authorities="com.charlesrowland.yourfriendlyneighborhoodcomicsbookshop"
             android:enabled="true"
-            android:exported="false"></provider>
+            android:exported="false" />
+
+        <activity android:name=".EditorActivity"></activity>
     </application>
 
 </manifest>

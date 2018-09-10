@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.Gravity;
 import android.widget.Toast;
 
+import com.charlesrowland.yourfriendlyneighborhoodcomicsbookshop.R;
+
 public class ComicProvider extends ContentProvider {
     public static final String LOG = ComicProvider.class.getSimpleName();
 
@@ -19,6 +21,8 @@ public class ComicProvider extends ContentProvider {
 
     // URI matcher for the content URI for a single comicbooks row in the table
     private static final int COMICBOOKS_ID = 101;
+
+    private boolean okToSave = false;
 
     /**
      * UriMatcher object to match a content URI to a corresponding code.
@@ -117,86 +121,49 @@ public class ComicProvider extends ContentProvider {
         String supplier_phone = values.getAsString(ComicContract.ComicEntry.COLUMN_SUPPLIER_PHONE );
 
         if (volume == null || volume.isEmpty()) {
-            Toast toast = Toast.makeText(getContext(), "Comic has to have a volume", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
-            toast.show();
-            return null;
-        }
-
-        if (name == null || name.isEmpty()) {
-            Toast toast = Toast.makeText(getContext(), "Comic has to have a name", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
-            toast.show();
+            showErrorToast(getContext().getResources().getString(R.string.volume_error));
             return null;
         }
 
         if (issue_num == null || issue_num < 0) {
-            Toast toast = Toast.makeText(getContext(), "Comic has to have a issue number", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
-            toast.show();
+            showErrorToast(getContext().getResources().getString(R.string.issue_num_error));
             return null;
         }
 
         if (release_date == null || release_date.isEmpty()) {
-            Toast toast = Toast.makeText(getContext(), "Comic has to have a release date", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
-            toast.show();
+            showErrorToast(getContext().getResources().getString(R.string.date_error));
             return null;
         }
 
         if (cover_type == null || cover_type.isEmpty()) {
-            Toast toast = Toast.makeText(getContext(), "Comic has to have a cover type", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
-            toast.show();
-            return null;
-        }
-
-        if (price == null || price < 0) {
-            Toast toast = Toast.makeText(getContext(), "Comic has to have a price", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
-            toast.show();
+            showErrorToast(getContext().getResources().getString(R.string.volume_error));
             return null;
         }
 
         if (quantity == null || quantity < 0) {
-            Toast toast = Toast.makeText(getContext(), "Comic has to have a quantity", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
-            toast.show();
-            return null;
-        }
-
-        if (onOroder == null || onOroder < 0) {
-            Toast toast = Toast.makeText(getContext(), "Comic has to have a quantity", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
-            toast.show();
+            showErrorToast(getContext().getResources().getString(R.string.quantity_error));
             return null;
         }
 
         if (publisher == null || publisher.isEmpty()) {
-            Toast toast = Toast.makeText(getContext(), "Comic has to have a publisher", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
-            toast.show();
+            showErrorToast(getContext().getResources().getString(R.string.publisher_error));
             return null;
         }
 
         if (supplier_name == null || supplier_name.isEmpty()) {
-            Toast toast = Toast.makeText(getContext(), "Comic has to have a supplier name", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
-            toast.show();
+            showErrorToast(getContext().getResources().getString(R.string.supplier_error));
             return null;
         }
 
         if (supplier_phone == null || supplier_phone.isEmpty()) {
-            Toast toast = Toast.makeText(getContext(), "Comic has to have a supplier phone number", Toast.LENGTH_SHORT);
-            toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 0);
-            toast.show();
+            showErrorToast(getContext().getResources().getString(R.string.phone_error));
             return null;
         }
 
         long id = db.insert(ComicContract.ComicEntry.TABLE_NAME, null, values);
 
         if (id == -1) {
-            Log.e(LOG, "Failed to insert row for " + uri);
+            showErrorToast(getContext().getResources().getString(R.string.editor_insert_comic_failed));
             return null;
         }
 
@@ -326,6 +293,7 @@ public class ComicProvider extends ContentProvider {
         }
 
         if (values.size() == 0) {
+            showErrorToast(getContext().getResources().getString(R.string.editor_update_comic_failed));
             return 0;
         }
 
@@ -337,5 +305,13 @@ public class ComicProvider extends ContentProvider {
         }
 
         return rowsUpdated;
+    }
+
+    private void showErrorToast(String field_name) {
+        //String error_message  = getContext().getResources().getString(R.string.error_toast, field_name);
+        String error_message = field_name;
+        Toast toast = Toast.makeText(getContext(), error_message, Toast.LENGTH_SHORT);
+        toast.show();
+
     }
 }

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/baseline_eight"
+        tools:context=".EditorActivity">
+
+        <TextView
+            android:id="@+id/howto_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bottom_border"
+            android:paddingBottom="@dimen/baseline_fourteen"
+            android:layout_marginBottom="@dimen/baseline_fourteen"
+            android:text="@string/add_new_info"/>
+
+        <!-- Dummy item to prevent TextInputEditText from receiving focus -->
+        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="0px"
+            android:layout_height="0px"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/baseline_fourteen">
+
+            <!-- :nextFocusUp and :nextFocusLeft have been set to the id of this component to prevent the dummy from receiving focus again -->
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/edit_comic_volume"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/volume_editor_header"
+                android:inputType="text"
+                android:nextFocusUp="@id/edit_comic_volume"
+                android:nextFocusLeft="@id/edit_comic_volume"
+                style="@style/TextStyles"/>
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/baseline_fourteen">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/edit_comic_name"
+                android:hint="@string/name_editor_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                style="@style/TextStyles"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/baseline_fourteen">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/edit_comic_issue_number"
+                android:hint="@string/issue_number_editor_header"
+                android:inputType="number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextStyles"/>
+        </android.support.design.widget.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/baseline_fourteen"
+        android:orientation="horizontal">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="230dp"
+            android:layout_height="wrap_content">
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/edit_comic_date"
+                android:hint="@string/release_date_editor_header"
+                android:inputType="date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextStyles"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <ImageButton
+            android:id="@+id/calendar_button"
+            android:layout_width="@dimen/calendar_button_dimen"
+            android:layout_height="@dimen/calendar_button_dimen"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:src="@drawable/ic_calendar"
+            android:background="#00000000"
+            android:layout_marginStart="@dimen/baseline_four"
+            android:layout_marginBottom="@dimen/baseline_eight"
+            android:layout_gravity="bottom"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/baseline_fourteen"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="110dp"
+            android:layout_height="wrap_content"
+            android:text="@string/cover_type_hint"
+            style="@style/TextStyles"/>
+
+        <Spinner
+            android:id="@+id/cover_spinner"
+            android:layout_width="wrap_content"
+            android:spinnerMode="dropdown"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/baseline_fourteen">
+            <AutoCompleteTextView
+                android:id="@+id/edit_comic_price"
+                android:hint="@string/price_editor_header"
+                android:completionHint="@string/price_editor_header"
+                android:completionThreshold="1"
+                android:singleLine="true"
+                android:inputType="numberDecimal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextStyles"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/baseline_fourteen"
+            android:orientation="horizontal">
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="8">
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edit_comic_quantity"
+                    android:hint="@string/quantity_editor_header"
+                    android:inputType="number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/TextStyles"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/quantity_add_button"
+                style="@style/QuantityButton"
+                android:text="@string/quantity_plus_button"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/quantity_minus_button"
+                style="@style/QuantityButton"
+                android:text="@string/quantity_minus_button"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/baseline_fourteen">
+            <AutoCompleteTextView
+                android:id="@+id/edit_comic_publisher"
+                android:hint="@string/publisher_editor_header"
+                android:completionHint="@string/publisher_editor_header"
+                android:completionThreshold="1"
+                android:singleLine="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                style="@style/TextStyles"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/baseline_fourteen">
+            <AutoCompleteTextView
+                android:id="@+id/edit_comic_supplier"
+                android:hint="@string/supplier_editor_header"
+                android:completionHint="@string/supplier_editor_header"
+                android:completionThreshold="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:inputType="text"
+                style="@style/TextStyles"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/baseline_fourteen">
+            <AutoCompleteTextView
+                android:id="@+id/edit_comic_supplier_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/supplier_phone_editor_header"
+                android:completionHint="@string/supplier_phone_editor_header"
+                android:completionThreshold="1"
+                android:inputType="phone"
+                android:singleLine="true"
+                style="@style/TextStyles"/>
+        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+</ScrollView>

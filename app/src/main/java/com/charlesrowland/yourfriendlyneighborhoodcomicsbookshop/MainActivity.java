@@ -4,58 +4,80 @@ import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.ContentUris;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 
-import com.charlesrowland.yourfriendlyneighborhoodcomicsbookshop.data.ComicContract.*;
-import com.charlesrowland.yourfriendlyneighborhoodcomicsbookshop.data.ComicDbHelper;
+import com.charlesrowland.yourfriendlyneighborhoodcomicsbookshop.data.ComicContract.ComicEntry;
 
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     public static final String TAG = MainActivity.class.getSimpleName();
     private static final int URL_LOADER= 0;
-    private RecyclerView recyclerView;
+    View emptyView;
+    private RecyclerView  recyclerView;
     private ComicAdapter mAdapter;
+    private boolean mReload = false;
     static final String[] projection = {ComicEntry._ID, ComicEntry.COLUMN_COMIC_VOLUME, ComicEntry.COLUMN_COMIC_NAME, ComicEntry.COLUMN_ISSUE_NUMBER, ComicEntry.COLUMN_RELEASE_DATE, ComicEntry.COLUMN_COVER_TYPE, ComicEntry.COLUMN_PRICE, ComicEntry.COLUMN_QUANTITY, ComicEntry.COLUMN_ON_ORDER, ComicEntry.COLUMN_PUBLISHER, ComicEntry.COLUMN_SUPPLIER_NAME, ComicEntry.COLUMN_SUPPLIER_PHONE};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        emptyView = findViewById(R.id.empty_view);
 
         buildRecyclerView();
-
         getLoaderManager().initLoader(URL_LOADER, null, this);
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        displayData();
+    }
+
+    public void displayData() {
+        if (mReload) {
+            getLoaderManager().restartLoader(URL_LOADER,null,this);
+            mReload = !mReload;
+        }
+        setEmptyView();
+    }
+
+    public void setEmptyView() {
+        int count = getAllItems().getCount();
+        if (count == 0) {
+            recyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            recyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+        }
     }
 
     public void buildRecyclerView() {
+
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setStackFromEnd(false);
         recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         mAdapter = new ComicAdapter(this, null);
         recyclerView.setAdapter(mAdapter);
@@ -63,15 +85,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mAdapter.setOnClickListener(new ComicAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, int db_id, int quantity, String title) {
-                Log.i(TAG, "onItemClick: TESTING position of clicked item: " + position);
-                Log.i(TAG, "onItemClick: TESTING title of clicked item: " + db_id);
-                Log.i(TAG, "onItemClick: TESTING title of clicked quantity: " + quantity);
-                Log.i(TAG, "onItemClick: TESTING title of clicked title: " + title);
+
             }
 
             @Override
             public void onLongClick(int position, int db_id, String title) {
-                showDeleteConfirmationDialog(db_id, position);
+
             }
         });
     }
@@ -119,13 +138,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
                 //getLoaderManager().restartLoader(URL_LOADER,null,this);
                 mAdapter.swapCursorInsertNew(getAllItems());
+                setEmptyView();
                 return true;
 
             case R.id.action_delete_all_entries:
                 // Respond to a click on the "Delete all entries" menu option
                 showDeleteAllConfirmationDialog();
-
                 return true;
+
+            case R.id.action_insert_new_comic:
+                mReload = true;
+                Intent intent = new Intent(MainActivity.this, EditorActivity.class);
+                startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -134,7 +158,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         switch(id) {
             case URL_LOADER:
-                String sortOrder = ComicEntry._ID + " DESC";
                 CursorLoader cl = new CursorLoader(this, ComicEntry.CONTENT_URI, projection, null, null, null);
                 return cl;
             default:
@@ -145,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         mAdapter.swapCursor(data);
-
+        mReload = ! mReload;
     }
 
     @Override
@@ -220,6 +243,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             // Otherwise, the delete was successful and we can display a toast.
             mAdapter.swapCursorDeleteSingleItem(getAllItems(), position);
         }
+        setEmptyView();
     }
 
     private void deleteAllComics() {
@@ -235,22 +259,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             // Otherwise, the delete was successful and we can display a toast.
             getLoaderManager().restartLoader(URL_LOADER, null, this);
         }
+        setEmptyView();
     }
 
     private Cursor getAllItems() {
         return getContentResolver().query(ComicEntry.CONTENT_URI, projection, null, null, ComicEntry._ID + " DESC");
-    }
-
-    private void updateQuantity(int db_id, int quantity, int position) {
-        Uri currentComicUri = ContentUris.withAppendedId(ComicEntry.CONTENT_URI, db_id);
-
-        ContentValues values = new ContentValues();
-        values.put(ComicEntry.COLUMN_QUANTITY, quantity);
-
-        int updateUri = getContentResolver().update(currentComicUri, values, null, null);
-
-        if (updateUri != 0) {
-            mAdapter.swapCursorItemChanged(getAllItems(), position);
-        }
     }
 }
