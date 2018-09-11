@@ -28,7 +28,6 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String TAG = "MainActivity";
     private static final int URL_LOADER= 0;
-    private int previousPosition = 0;
 
     View emptyView;
     private RecyclerView  recyclerView;
@@ -93,7 +92,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             @Override
             public void onItemClick(int position, int db_id, int quantity, String title) {
                 Uri updateUri = ContentUris.withAppendedId(ComicEntry.CONTENT_URI, db_id);
-                previousPosition = position;
 
                 ContentValues values = new ContentValues();
                 values.put(ComicEntry.COLUMN_QUANTITY, quantity);
