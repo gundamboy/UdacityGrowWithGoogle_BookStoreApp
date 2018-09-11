@@ -9,21 +9,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.charlesrowland.comicshop.MainActivity">
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity" />
 
         <provider
-            android:name="com.charlesrowland.comicshop.data.ComicProvider"
+            android:name=".data.ComicProvider"
             android:authorities="com.charlesrowland.comicshop"
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name="com.charlesrowland.comicshop.EditorActivity"></activity>
+        <activity android:name=".EditorActivity" />
     </application>
 
 </manifest>

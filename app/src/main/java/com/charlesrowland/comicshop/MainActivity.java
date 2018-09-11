@@ -25,7 +25,7 @@ import com.charlesrowland.comicshop.data.ComicContract.ComicEntry;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
-    public static final String TAG = MainActivity.class.getSimpleName();
+
     private static final int URL_LOADER= 0;
     View emptyView;
     private RecyclerView  recyclerView;
@@ -85,17 +85,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mAdapter = new ComicAdapter(this, null);
         recyclerView.setAdapter(mAdapter);
 
-        // ok, this might look like a bunch of empty junk, but without it you can't click
-        // the buttons on the list items. It is here for a reason so chill out.
+        // updates the quantity when the sell button is pushed. it works because of science.
         mAdapter.setOnClickListener(new ComicAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, int db_id, int quantity, String title) {
+                Uri updateUri = ContentUris.withAppendedId(ComicEntry.CONTENT_URI, db_id);
+                ContentValues values = new ContentValues();
+                values.put(ComicEntry.COLUMN_QUANTITY, quantity);
+                int rowsAffected = getContentResolver().update(updateUri, values, null, null);
 
-            }
-
-            @Override
-            public void onLongClick(int position, int db_id, String title) {
-
+                if (rowsAffected != 0) {
+                    mAdapter.swapCursorItemChanged(getAllItems(), position);
+                }
             }
         });
     }

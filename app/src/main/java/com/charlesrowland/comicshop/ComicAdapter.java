@@ -19,7 +19,6 @@ import android.widget.TextView;
 import com.charlesrowland.comicshop.data.ComicContract;
 
 public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHolder> {
-    public static final String TAG = ComicAdapter.class.getSimpleName();
     private Context mContext;
     private Cursor mCursor;
     private OnItemClickListener mListener;
@@ -32,8 +31,6 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
     // click listener interface;
     public interface OnItemClickListener {
         void onItemClick(int position, int db_id, int quantity, String title);
-        void onLongClick(int position, int db_id, String title);
-
     }
 
     public void setOnClickListener(OnItemClickListener listener) {
@@ -90,11 +87,9 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
                 public void onClick(View v) {
                     if (listener != null) {
                         int db_id = Integer.parseInt(item_id.getText().toString());
-                        Log.i(TAG, "onClick: db_id: " + db_id);
 
                         Intent intent = new Intent(itemView.getContext(), EditorActivity.class);
                         Uri currentComicUri = ContentUris.withAppendedId(ComicContract.ComicEntry.CONTENT_URI, db_id);
-                        Log.i(TAG, "onClick: currentComicUri: " + currentComicUri);
 
                         intent.setData(currentComicUri);
                         itemView.getContext().startActivity(intent);
@@ -186,18 +181,6 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
         }
     }
 
-    public void swapCursorDeleteSingleItem(Cursor newCursor, int position) {
-        if (mCursor != null) {
-            mCursor.close();
-        }
-
-        mCursor = newCursor;
-
-        if (newCursor != null) {
-            notifyItemRemoved(position);
-        }
-    }
-
     public void swapCursorItemChanged(Cursor newCursor, int position) {
         if (mCursor != null) {
             mCursor.close();
@@ -209,5 +192,4 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
             notifyItemChanged(position);
         }
     }
-
 }

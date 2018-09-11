@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.charlesrowland.comicshop.R;
 
 public class ComicProvider extends ContentProvider {
-    public static final String LOG = ComicProvider.class.getSimpleName();
 
     // URI matcher code for the content URI for the comicbookstable
     private static final int COMICBOOKS = 100;
@@ -70,7 +69,6 @@ public class ComicProvider extends ContentProvider {
                 if (rowsDeleted != 0) {
                     getContext().getContentResolver().notifyChange(uri, null);
                 }
-
                 return rowsDeleted;
             default:
                 throw new IllegalArgumentException("Deletion is not supported for " + uri);
@@ -173,7 +171,6 @@ public class ComicProvider extends ContentProvider {
     public boolean onCreate() {
         // initialize a ComicDbHelper object
         mDbHelper = new ComicDbHelper((getContext()));
-
         return true;
     }
 
@@ -300,6 +297,5 @@ public class ComicProvider extends ContentProvider {
         String error_message = field_name;
         Toast toast = Toast.makeText(getContext(), error_message, Toast.LENGTH_SHORT);
         toast.show();
-
     }
 }

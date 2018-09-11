@@ -35,7 +35,6 @@ import java.util.Calendar;
 public class EditorActivity extends AppCompatActivity implements
         LoaderManager.LoaderCallbacks<Cursor> {
 
-    public static final String TAG = EditorActivity.class.getSimpleName();
     private TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private static final int EXISTING_COMIC_LOADER = 0;
@@ -306,15 +305,12 @@ public class EditorActivity extends AppCompatActivity implements
         values.put(ComicContract.ComicEntry.COLUMN_SUPPLIER_NAME, supplier);
         values.put(ComicContract.ComicEntry.COLUMN_SUPPLIER_PHONE, phone);
 
-
         if (mCurrentComicUri == null) {
             Uri newUri = getContentResolver().insert(ComicContract.ComicEntry.CONTENT_URI, values);
 
             if (newUri != null) {
                 // comic saved successfully
-                Toast.makeText(this, getString(R.string.editor_insert_comic_successful),
-                        Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(this, getString(R.string.editor_insert_comic_successful), Toast.LENGTH_SHORT).show();
                 okToSave = true;
             }
         } else {
@@ -328,7 +324,6 @@ public class EditorActivity extends AppCompatActivity implements
                 okToSave = true;
             }
         }
-
     }
 
     @Override
@@ -433,7 +428,6 @@ public class EditorActivity extends AppCompatActivity implements
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-
         // start doing database stuff
         String[] projection = {ComicContract.ComicEntry._ID, ComicContract.ComicEntry.COLUMN_COMIC_VOLUME, ComicContract.ComicEntry.COLUMN_COMIC_NAME, ComicContract.ComicEntry.COLUMN_ISSUE_NUMBER, ComicContract.ComicEntry.COLUMN_RELEASE_DATE, ComicContract.ComicEntry.COLUMN_COVER_TYPE, ComicContract.ComicEntry.COLUMN_PRICE, ComicContract.ComicEntry.COLUMN_QUANTITY, ComicContract.ComicEntry.COLUMN_PUBLISHER, ComicContract.ComicEntry.COLUMN_SUPPLIER_NAME, ComicContract.ComicEntry.COLUMN_SUPPLIER_PHONE};
         return new CursorLoader(this, mCurrentComicUri, projection, null, null, null);
