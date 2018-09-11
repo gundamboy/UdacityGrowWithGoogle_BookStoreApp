@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.charlesrowland.comicshop.data.ComicContract;
 
 public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHolder> {
+    private static final String TAG = "ComicAdapter";
     private Context mContext;
     private Cursor mCursor;
     private OnItemClickListener mListener;
@@ -114,7 +115,6 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
 
         final String volume = mCursor.getString(mCursor.getColumnIndex(ComicContract.ComicEntry.COLUMN_COMIC_VOLUME));
         int issue = mCursor.getInt(mCursor.getColumnIndex(ComicContract.ComicEntry.COLUMN_ISSUE_NUMBER));
-        String title = mCursor.getString(mCursor.getColumnIndex(ComicContract.ComicEntry.COLUMN_COMIC_NAME));
         String full_title = volume + " #" + String.valueOf(issue);
         String publisher = mCursor.getString(mCursor.getColumnIndex(ComicContract.ComicEntry.COLUMN_PUBLISHER));
         String release_date = mCursor.getString(mCursor.getColumnIndex(ComicContract.ComicEntry.COLUMN_RELEASE_DATE));
@@ -125,7 +125,6 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
 
         // if the quantity is 10 or less that needs to be indicated. Nothing worse than running out of comics.
         holder.quantityOnHand.setTextColor(quantityColor(quantity));
-
         holder.item_id.setText(String.valueOf(db_id));
         holder.book_title.setText(full_title);
         holder.comic_info.setText(info);
@@ -178,18 +177,6 @@ public class ComicAdapter extends RecyclerView.Adapter<ComicAdapter.ComicViewHol
 
         if (newCursor != null) {
             notifyItemInserted(0);
-        }
-    }
-
-    public void swapCursorItemChanged(Cursor newCursor, int position) {
-        if (mCursor != null) {
-            mCursor.close();
-        }
-
-        mCursor = newCursor;
-
-        if (newCursor != null) {
-            notifyItemChanged(position);
         }
     }
 }

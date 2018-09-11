@@ -352,7 +352,7 @@ public class EditorActivity extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save:
-                if (!mComicHasChanged) {
+                if (!mComicHasChanged && !editMode) {
                     showCheckInfoDialog(R.string.editor_insert_comic_no_data);
                 } else {
                     // Save to database
@@ -360,7 +360,6 @@ public class EditorActivity extends AppCompatActivity implements
 
                     if (okToSave) {
                         // Exit activity
-                        setResult(RESULT_OK);
                         finish();
                     } else {
                         showCheckInfoDialog(R.string.editor_insert_comic_check_data);
