@@ -12,7 +12,7 @@
     <string name="out_of_stock_message">Out of stock</string>
 
     <string name="add_new_info">To add a comic to your inventory fill out the fields below. All fields are required except for the Story Arc.</string>
-    <string name="edit_book_info">Edit the fields below then save to uupdate your comic. All fields are required except for the Story Arc.</string>
+    <string name="edit_book_info">Edit the fields below then save to update your comic. All fields are required except for the Story Arc.</string>
     <string name="action_insert_new_comic">Add A Comic</string>
     <string name="action_edit_comic">Edit A Comic</string>
     <string name="action_insert_dummy_data">Insert Dummy Data</string>
@@ -20,6 +20,8 @@
 
     <string name="editor_insert_comic_successful">Comic saved</string>
     <string name="editor_insert_comic_failed">Error with saving comic</string>
+    <string name="editor_insert_comic_no_data">You have to fill out the fields to save a comic</string>
+    <string name="editor_insert_comic_check_data">You have some errors. Check the fields and try again.</string>
     <string name="editor_update_comic_successful">Comic updated</string>
     <string name="editor_update_comic_failed">Error with updating comic</string>
     <string name="editor_delete_comic_successful">Comic deleted</string>
@@ -54,6 +56,7 @@
 
     <string name="error_toast">The <xliff:g example="amy" id="field_error">%s</xliff:g> field requires a value</string>
     <string name="volume_error">There must be a volume name, i.e. Batman or Superman</string>
+    <string name="price_error">There needs to be a price</string>
     <string name="issue_num_error">There must be an issue number</string>
     <string name="date_error">There must be a release date</string>
     <string name="quantity_error">You must have at least 1 comic to save</string>

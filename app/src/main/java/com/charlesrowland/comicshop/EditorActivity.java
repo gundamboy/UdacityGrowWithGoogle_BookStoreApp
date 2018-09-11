@@ -12,6 +12,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -351,13 +352,19 @@ public class EditorActivity extends AppCompatActivity implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save:
-                // Save to database
-                saveComic();
+                if (!mComicHasChanged) {
+                    showCheckInfoDialog(R.string.editor_insert_comic_no_data);
+                } else {
+                    // Save to database
+                    saveComic();
 
-                if (okToSave) {
-                    // Exit activity
-                    setResult(RESULT_OK);
-                    finish();
+                    if (okToSave) {
+                        // Exit activity
+                        setResult(RESULT_OK);
+                        finish();
+                    } else {
+                        showCheckInfoDialog(R.string.editor_insert_comic_check_data);
+                    }
                 }
 
                 return true;
@@ -502,8 +509,7 @@ public class EditorActivity extends AppCompatActivity implements
         return index;
     }
 
-    private void showUnsavedChangesDialog(
-        DialogInterface.OnClickListener discardButtonClickListener) {
+    private void showUnsavedChangesDialog(DialogInterface.OnClickListener discardButtonClickListener) {
             // Create an AlertDialog.Builder and set the message, and click listeners
             // for the postivie and negative buttons on the dialog.
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -513,6 +519,25 @@ public class EditorActivity extends AppCompatActivity implements
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Keep editing" button, so dismiss the dialog
                 // and continue editing the comic.
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        // Create and show the AlertDialog
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private void showCheckInfoDialog(int message) {
+        // Create an AlertDialog.Builder and set the message, and click listeners
+        // for the positive button only.
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setMessage(message);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
                 if (dialog != null) {
                     dialog.dismiss();
                 }

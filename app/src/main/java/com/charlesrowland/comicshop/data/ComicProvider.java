@@ -217,63 +217,49 @@ public class ComicProvider extends ContentProvider {
         if (values.containsKey(ComicContract.ComicEntry.COLUMN_COMIC_VOLUME)) {
             String volume = values.getAsString(ComicContract.ComicEntry.COLUMN_COMIC_VOLUME);
             if (volume == null) {
-                throw new IllegalArgumentException("Comic requires a volume");
-            }
-        }
-
-        if (values.containsKey(ComicContract.ComicEntry.COLUMN_COMIC_NAME)) {
-            String name = values.getAsString(ComicContract.ComicEntry.COLUMN_COMIC_NAME);
-            if (name == null) {
-                throw new IllegalArgumentException("Comic requires a volume");
+                showErrorToast(getContext().getResources().getString(R.string.volume_error));
             }
         }
 
         if (values.containsKey(ComicContract.ComicEntry.COLUMN_ISSUE_NUMBER)) {
             Integer issue_number = values.getAsInteger(ComicContract.ComicEntry.COLUMN_ISSUE_NUMBER);
             if (issue_number == null) {
-                throw new IllegalArgumentException("Comic requires an issue number");
+                showErrorToast(getContext().getResources().getString(R.string.issue_num_error));
             }
         }
 
         if (values.containsKey(ComicContract.ComicEntry.COLUMN_RELEASE_DATE)) {
             String release_date = values.getAsString(ComicContract.ComicEntry.COLUMN_RELEASE_DATE);
             if (release_date == null) {
-                throw new IllegalArgumentException("Comic requires a volume");
-            }
-        }
-
-        if (values.containsKey(ComicContract.ComicEntry.COLUMN_COVER_TYPE)) {
-            String cover = values.getAsString(ComicContract.ComicEntry.COLUMN_COVER_TYPE);
-            if (cover == null) {
-                throw new IllegalArgumentException("Comic requires a cover type");
+                showErrorToast(getContext().getResources().getString(R.string.date_error));
             }
         }
 
         if (values.containsKey(ComicContract.ComicEntry.COLUMN_PRICE)) {
             Double price = values.getAsDouble(ComicContract.ComicEntry.COLUMN_PRICE);
             if (price == null) {
-                throw new IllegalArgumentException("Comic requires a price");
+                showErrorToast(getContext().getResources().getString(R.string.price_error));
             }
         }
 
         if (values.containsKey(ComicContract.ComicEntry.COLUMN_PUBLISHER)) {
             String publisher = values.getAsString(ComicContract.ComicEntry.COLUMN_PUBLISHER);
             if (publisher == null) {
-                throw new IllegalArgumentException("Comic requires a publisher");
+                showErrorToast(getContext().getResources().getString(R.string.publisher_error));
             }
         }
 
         if (values.containsKey(ComicContract.ComicEntry.COLUMN_SUPPLIER_NAME)) {
             String supplier_name = values.getAsString(ComicContract.ComicEntry.COLUMN_SUPPLIER_NAME);
             if (supplier_name == null) {
-                throw new IllegalArgumentException("Comic requires a supplier name");
+                showErrorToast(getContext().getResources().getString(R.string.supplier_error));
             }
         }
 
         if (values.containsKey(ComicContract.ComicEntry.COLUMN_SUPPLIER_PHONE)) {
             String phone = values.getAsString(ComicContract.ComicEntry.COLUMN_SUPPLIER_PHONE);
             if (phone == null) {
-                throw new IllegalArgumentException("Comic requires a supplier phone number");
+                showErrorToast(getContext().getResources().getString(R.string.phone_error));
             }
         }
 
