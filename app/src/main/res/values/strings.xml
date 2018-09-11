@@ -1,27 +1,67 @@
-<resources>
-    <string name="app_name">Your Friendly Comic Book Shop</string>
-    <string name="publisher_marvel">Marvel Comics</string>
-    <string name="publisher_dc">DC Entertainment Inc</string>
-    <string name="publisher_darkhorse">Dark Horse Comics</string>
-    <string name="publisher_image">Image Comics</string>
-    <string name="publisher_idw">IDW Publishing</string>
-    <string name="publisher_valiant">Valiant Comics</string>
-    <string name="cover_type_regular">Regular</string>
-    <string name="cover_type_variant">Variant</string>
-    <string name="sole_distributor_killing_the_industry">Diamond Comic Distributors</string>
-    <string name="distributor_contact_number_retailer">1 (443) 318–8500</string>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">Comic Shop Inventory</string>
+    <string name="emptyViewText">There\'s not much to see here…\nget started by adding a comic\nwith the plus button up top</string>
+    <string name="sell_button">Sell</string>
+    <string name="edit_button">Edit</string>
+    <string name="quantity_plus_button">+</string>
+    <string name="quantity_minus_button">-</string>
+    <string name="cover_type_hint">Cover Type:</string>
 
     <!--these are temp strings and will be going away so don't get attached to them...-->
-    <string name="total_inventory_header">There are %1$d Comic Books in the comicbooks table.</string>
-    <string name="comic_id">Id: %1$s</string>
-    <string name="comic_volume">Volume: %1$s</string>
-    <string name="comic_name">Name:%1$s</string>
-    <string name="comic_issue">Issue: %1$s</string>
-    <string name="comic_date">Release Date: %1$s</string>
-    <string name="comic_cover">Cover Type: %1$s</string>
-    <string name="comic_price">Price: $%1$s</string>
-    <string name="comic_quantity">Quantity: %1$s</string>
-    <string name="comic_publisher">Publisher: %1$s</string>
-    <string name="comic_supplier">Supplier: %1$s</string>
-    <string name="comic_supplier_phone">Phone: %1$s</string>
+    <string name="in_stock_message">\u00A0total in stock</string>
+    <string name="out_of_stock_message">Out of stock</string>
+
+    <string name="add_new_info">To add a comic to your inventory fill out the fields below. All fields are required except for the Story Arc.</string>
+    <string name="edit_book_info">Edit the fields below then save to update your comic. All fields are required except for the Story Arc.</string>
+    <string name="action_insert_new_comic">Add A Comic</string>
+    <string name="action_edit_comic">Edit A Comic</string>
+    <string name="action_insert_dummy_data">Insert Dummy Data</string>
+    <string name="action_delete_all_entries">Delete All Comics</string>
+
+    <string name="editor_insert_comic_successful">Comic saved</string>
+    <string name="editor_insert_comic_failed">Error with saving comic</string>
+    <string name="editor_insert_comic_no_data">You have to fill out the fields to save a comic</string>
+    <string name="editor_insert_comic_check_data">You have some errors. Check the fields and try again.</string>
+    <string name="editor_update_comic_successful">Comic updated</string>
+    <string name="editor_update_comic_failed">Error with updating comic</string>
+    <string name="editor_delete_comic_successful">Comic deleted</string>
+    <string name="delete">Delete</string>
+
+    <!-- Dialog button text for the option to cancel deletion of the current pet [CHAR LIMIT=20] -->
+    <string name="cancel">Cancel</string>
+    <string name="delete_dialog_msg">Delete this comic?</string>
+    <string name="delete_all_dialog_msg">Delete all comics?</string>
+    <string name="editor_delete_comic_failed">Error with deleting comic</string>
+
+    <string name="action_save">Save</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_contact">Contact Supplier</string>
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+    <string name="discard">Discard</string>
+    <string name="keep_editing">Keep Editing</string>
+
+    <string name="volume_editor_header">Title</string>
+    <string name="name_editor_header">Story Arc</string>
+    <string name="issue_number_editor_header">Issue Number</string>
+    <string name="release_date_editor_header">Release Date</string>
+    <string name="cover_type_editor_header">Cover Type</string>
+    <string name="price_editor_header">Price</string>
+    <string name="quantity_editor_header">Quantity</string>
+    <string name="publisher_editor_header">Publisher</string>
+    <string name="supplier_editor_header">Supplier</string>
+    <string name="supplier_phone_editor_header">Supplier Phone Number</string>
+
+    <string name="default_supplier">Diamond Comic Distributors</string>
+    <string name="default_supplier_phone">1 (443) 318–8500</string>
+
+    <string name="error_toast">The <xliff:g example="amy" id="field_error">%s</xliff:g> field requires a value</string>
+    <string name="volume_error">There must be a volume name, i.e. Batman or Superman</string>
+    <string name="price_error">There needs to be a price</string>
+    <string name="issue_num_error">There must be an issue number</string>
+    <string name="date_error">There must be a release date</string>
+    <string name="quantity_error">You must have at least 1 comic to save</string>
+    <string name="publisher_error">There must be a publisher, i.e. Marvel or DC</string>
+    <string name="supplier_error">There must be a supplier</string>
+    <string name="phone_error">There must be a supplier phone number</string>
+
 </resources>

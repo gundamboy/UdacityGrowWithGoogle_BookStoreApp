@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#11426a</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#11426a</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="divider_background">#dfe1e2</color>
+    <color name="comic_title_text">#2a536e</color>
+    <color name="comic_byline_text_color">#618093</color>
+    <color name="quantity_warning">#ff4300</color>
+    <color name="sell_button_background">#2a536e</color>
+    <color name="sell_button_stroke">#11426a</color>
+    <color name="sell_button_text_color">#FFFFFF</color>
 </resources>

@@ -6,6 +6,65 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
+
+    <style name="CustomActivityAnimation" parent="@style/AppTheme">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
+
+    <style name="InventoryListTitles" parent="AppTheme">
+        <item name="android:textColor">@color/comic_byline_text_color</item>
+        <item name="android:textSize">@dimen/comic_title_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="InventoryListByline" parent="AppTheme">
+        <item name="android:textColor">@color/comic_byline_text_color</item>
+        <item name="android:textSize">@dimen/comic_byline_text</item>
+    </style>
+
+    <style name="SellButton" parent="AppTheme">
+        <item name="android:textSize">@dimen/sell_button_text</item>
+        <item name="android:layout_marginEnd">@dimen/margins_eight</item>
+        <item name="android:layout_width">@dimen/list_item_button_width</item>
+        <item name="android:layout_height">@dimen/list_item_button_height</item>
+    </style>
+
+    <style name="EditButton" parent="AppTheme">
+        <item name="android:textSize">@dimen/sell_button_text</item>
+        <item name="android:layout_marginEnd">@dimen/margins_four</item>
+        <item name="android:layout_width">@dimen/list_item_button_width</item>
+        <item name="android:layout_height">@dimen/list_item_button_height</item>
+    </style>
+
+    <style name="QuantityButton" parent="AppTheme">
+        <item name="android:textSize">@dimen/quantity_buttons_text</item>
+        <item name="android:layout_marginEnd">@dimen/margins_eight</item>
+        <item name="android:layout_width">@dimen/quantity_buttons_width</item>
+        <item name="android:layout_height">@dimen/quantity_buttons_height</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:layout_marginBottom">@dimen/baseline_four</item>
+    </style>
+
+    <style name="EditorFieldStyle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+    </style>
+
+    <style name="TextStyles">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
 
 </resources>

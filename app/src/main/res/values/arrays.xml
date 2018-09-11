@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="publisher_labels">
-        <item>@string/publisher_marvel</item>
-        <item>@string/publisher_dc</item>
-        <item>@string/publisher_darkhorse</item>
-        <item>@string/publisher_image</item>
-        <item>@string/publisher_idw</item>
-        <item>@string/publisher_valiant</item>
+    <string-array name="cover_types_array">
+        <item>Regular</item>
+        <item>Variant</item>
+    </string-array>
+
+    <string-array name="publishers_array">
+        <item>Marvel Comics</item>
+        <item>DC Comics</item>
+        <item>Boom Comics</item>
+        <item>Dark Horse Comics</item>
+        <item>Image Comics</item>
+        <item>IDW Comics</item>
+        <item>Valiant Comics</item>
+        <item>Variant Comics</item>
+    </string-array>
+
+    <string-array name="suggested_prices_array">
+        <item>0.00</item>
+        <item>1.99</item>
+        <item>2.99</item>
+        <item>3.99</item>
+        <item>4.99</item>
+        <item>5.99</item>
+    </string-array>
+
+    <string-array name="distributors_array">
+        <item>Diamond Comic Distributors</item>
+    </string-array>
+
+    <string-array name="distributors_phone_array">
+        <item>1 (443) 318–8500</item>
     </string-array>
 </resources>
