@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     private RecyclerView  recyclerView;
     private ComicAdapter mAdapter;
     private boolean mReload = false;
-    static final String[] projection = {ComicEntry._ID, ComicEntry.COLUMN_COMIC_VOLUME, ComicEntry.COLUMN_COMIC_NAME, ComicEntry.COLUMN_ISSUE_NUMBER, ComicEntry.COLUMN_RELEASE_DATE, ComicEntry.COLUMN_COVER_TYPE, ComicEntry.COLUMN_PRICE, ComicEntry.COLUMN_QUANTITY, ComicEntry.COLUMN_ON_ORDER, ComicEntry.COLUMN_PUBLISHER, ComicEntry.COLUMN_SUPPLIER_NAME, ComicEntry.COLUMN_SUPPLIER_PHONE};
+    static final String[] projection = {ComicEntry._ID, ComicEntry.COLUMN_COMIC_VOLUME, ComicEntry.COLUMN_COMIC_NAME, ComicEntry.COLUMN_ISSUE_NUMBER, ComicEntry.COLUMN_RELEASE_DATE, ComicEntry.COLUMN_COVER_TYPE, ComicEntry.COLUMN_PRICE, ComicEntry.COLUMN_QUANTITY, ComicEntry.COLUMN_PUBLISHER, ComicEntry.COLUMN_SUPPLIER_NAME, ComicEntry.COLUMN_SUPPLIER_PHONE};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +134,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 values.put(ComicEntry.COLUMN_COVER_TYPE,"Original");
                 values.put(ComicEntry.COLUMN_PRICE,3.99);
                 values.put(ComicEntry.COLUMN_QUANTITY,stock_nums[rnd_stock_index]);
-                values.put(ComicEntry.COLUMN_ON_ORDER,0);
                 values.put(ComicEntry.COLUMN_PUBLISHER,"DC Comics");
                 values.put(ComicEntry.COLUMN_SUPPLIER_NAME,"Diamond Comic Distributors");
                 values.put(ComicEntry.COLUMN_SUPPLIER_PHONE,"1 (443) 318–8500");
@@ -228,7 +227,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setEmptyView();
     }
 
-    // helper method to grab a row count from the database
     private Cursor getAllItems() {
         return getContentResolver().query(ComicEntry.CONTENT_URI, projection, null, null, ComicEntry._ID + " DESC");
     }

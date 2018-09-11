@@ -111,7 +111,6 @@ public class ComicProvider extends ContentProvider {
         String cover_type = values.getAsString(ComicContract.ComicEntry.COLUMN_COVER_TYPE );
         Double price = values.getAsDouble(ComicContract.ComicEntry.COLUMN_PRICE );
         Integer quantity = values.getAsInteger(ComicContract.ComicEntry.COLUMN_QUANTITY );
-        Integer onOroder = values.getAsInteger(ComicContract.ComicEntry.COLUMN_ON_ORDER );
         String publisher = values.getAsString(ComicContract.ComicEntry.COLUMN_PUBLISHER );
         String supplier_name = values.getAsString(ComicContract.ComicEntry.COLUMN_SUPPLIER_NAME );
         String supplier_phone = values.getAsString(ComicContract.ComicEntry.COLUMN_SUPPLIER_PHONE );
@@ -257,13 +256,6 @@ public class ComicProvider extends ContentProvider {
             Double price = values.getAsDouble(ComicContract.ComicEntry.COLUMN_PRICE);
             if (price == null) {
                 throw new IllegalArgumentException("Comic requires a price");
-            }
-        }
-
-        if (values.containsKey(ComicContract.ComicEntry.COLUMN_ON_ORDER)) {
-            Integer on_order = values.getAsInteger(ComicContract.ComicEntry.COLUMN_ON_ORDER);
-            if (on_order == null) {
-                throw new IllegalArgumentException("Comic requires a total on order");
             }
         }
 

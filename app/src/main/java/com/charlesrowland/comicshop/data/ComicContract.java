@@ -33,7 +33,6 @@ public final class ComicContract {
         public static final String COLUMN_COVER_TYPE = "cover_type";
         public static final String COLUMN_PRICE = "price";
         public static final String COLUMN_QUANTITY = "quantity";
-        public static final String COLUMN_ON_ORDER = "on_order";
         public static final String COLUMN_PUBLISHER = "publisher";
         public static final String COLUMN_SUPPLIER_NAME = "supplier_name";
         public static final String COLUMN_SUPPLIER_PHONE = "supplier_phone";

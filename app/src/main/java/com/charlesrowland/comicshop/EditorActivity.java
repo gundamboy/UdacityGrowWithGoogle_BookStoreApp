@@ -435,7 +435,7 @@ public class EditorActivity extends AppCompatActivity implements
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
 
         // start doing database stuff
-        String[] projection = {ComicContract.ComicEntry._ID, ComicContract.ComicEntry.COLUMN_COMIC_VOLUME, ComicContract.ComicEntry.COLUMN_COMIC_NAME, ComicContract.ComicEntry.COLUMN_ISSUE_NUMBER, ComicContract.ComicEntry.COLUMN_RELEASE_DATE, ComicContract.ComicEntry.COLUMN_COVER_TYPE, ComicContract.ComicEntry.COLUMN_PRICE, ComicContract.ComicEntry.COLUMN_QUANTITY, ComicContract.ComicEntry.COLUMN_ON_ORDER, ComicContract.ComicEntry.COLUMN_PUBLISHER, ComicContract.ComicEntry.COLUMN_SUPPLIER_NAME, ComicContract.ComicEntry.COLUMN_SUPPLIER_PHONE};
+        String[] projection = {ComicContract.ComicEntry._ID, ComicContract.ComicEntry.COLUMN_COMIC_VOLUME, ComicContract.ComicEntry.COLUMN_COMIC_NAME, ComicContract.ComicEntry.COLUMN_ISSUE_NUMBER, ComicContract.ComicEntry.COLUMN_RELEASE_DATE, ComicContract.ComicEntry.COLUMN_COVER_TYPE, ComicContract.ComicEntry.COLUMN_PRICE, ComicContract.ComicEntry.COLUMN_QUANTITY, ComicContract.ComicEntry.COLUMN_PUBLISHER, ComicContract.ComicEntry.COLUMN_SUPPLIER_NAME, ComicContract.ComicEntry.COLUMN_SUPPLIER_PHONE};
         return new CursorLoader(this, mCurrentComicUri, projection, null, null, null);
     }
 
