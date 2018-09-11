@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,8 +26,10 @@ import com.charlesrowland.comicshop.data.ComicContract.ComicEntry;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
-
+    private static final String TAG = "MainActivity";
     private static final int URL_LOADER= 0;
+    private int previousPosition = 0;
+
     View emptyView;
     private RecyclerView  recyclerView;
     private ComicAdapter mAdapter;
@@ -90,12 +93,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             @Override
             public void onItemClick(int position, int db_id, int quantity, String title) {
                 Uri updateUri = ContentUris.withAppendedId(ComicEntry.CONTENT_URI, db_id);
+                previousPosition = position;
+
                 ContentValues values = new ContentValues();
                 values.put(ComicEntry.COLUMN_QUANTITY, quantity);
                 int rowsAffected = getContentResolver().update(updateUri, values, null, null);
 
                 if (rowsAffected != 0) {
-                    mAdapter.swapCursorItemChanged(getAllItems(), position);
+                    mAdapter.swapCursor(getAllItems());
                 }
             }
         });
@@ -163,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         switch(id) {
             case URL_LOADER:
-                CursorLoader cl = new CursorLoader(this, ComicEntry.CONTENT_URI, projection, null, null, null);
+                CursorLoader cl = new CursorLoader(this, ComicEntry.CONTENT_URI, projection, null, null, ComicEntry._ID + " DESC");
                 return cl;
             default:
                 return null;
